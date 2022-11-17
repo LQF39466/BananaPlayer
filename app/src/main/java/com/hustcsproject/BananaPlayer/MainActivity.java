@@ -1,6 +1,7 @@
 package com.hustcsproject.BananaPlayer;
 
 import android.Manifest;
+import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -21,6 +22,7 @@ import com.hustcsproject.BananaPlayer.base.BaseActivity;
 import com.hustcsproject.BananaPlayer.model.SongModel;
 import com.hustcsproject.BananaPlayer.utils.ScanMusicUtils;
 import com.hustcsproject.BananaPlayer.utils.UmEventUtils;
+import com.hustcsproject.BananaPlayer.NowPlaying;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
@@ -157,6 +159,14 @@ public class MainActivity extends BaseActivity {
         btnNext.setOnClickListener(this::onClick);
     }
 
+    public void startNowPlayingActivity(View view) {
+        Intent intent = new Intent(this, NowPlaying.class);
+        intent.putExtra("songName", songsList.get(mPosition).getName());
+        intent.putExtra("artist", songsList.get(mPosition).getSinger());
+        intent.putExtra("imagePath", songsList.get(mPosition).getImagePath());
+        startActivity(intent);
+    }
+
     /**
      * 初始化数据局
      */
@@ -218,13 +228,13 @@ public class MainActivity extends BaseActivity {
     /**
      * 处理点击事件
      */
-    private void onClick(View v) {
+    public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnLast) {
             // 上一曲
             last();
             UmEventUtils.lastMusic();
-        } else if (id == R.id.btnStar) {
+        } else if (id == R.id.btnStar || id == R.id.playStopButton) {
             // 播放/暂停
             play(songsList.get(mPosition), false);
         } else if (id == R.id.btnStop) {
