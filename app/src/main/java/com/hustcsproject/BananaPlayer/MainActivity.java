@@ -26,6 +26,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import io.reactivex.disposables.Disposable;
 
@@ -42,9 +43,12 @@ public class MainActivity extends BaseActivity {
     private ImageButton btnPrev;
     private ImageButton btnStart;
     private ImageButton btnNext;
+    private ImageButton btnPlayLogic;
 
     private SongAdapter mAdapter;
     private MusicPlayerHelper helper;
+
+    private int PlayLogic;
 
     /**
      * 歌曲数据源
@@ -55,7 +59,6 @@ public class MainActivity extends BaseActivity {
      * 当前播放歌曲游标位置
      */
     private int mPosition = 0;
-
 
     /**
      * 设置页面标题
@@ -101,6 +104,8 @@ public class MainActivity extends BaseActivity {
         btnPrev = findViewById(R.id.prevButton);
         btnStart = findViewById(R.id.playButton);
         btnNext = findViewById(R.id.nexButton);
+        btnPlayLogic = findViewById(R.id.playLogicButton);
+        PlayLogic = 0;
 
         initPlayHelper();
         initRecycleView();
@@ -247,6 +252,26 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
+     * 修改播放逻辑
+     */
+    public void onClickPlayLogic(View view0) {
+        PlayLogic = (PlayLogic + 1) % 3;
+        switch (PlayLogic) {
+            case 0: // 顺序播放
+                btnPlayLogic.setImageResource(R.drawable.play_order);
+                break;
+            case 1: // 随机播放
+                btnPlayLogic.setImageResource(R.drawable.play_random);
+                break;
+            case 2: // 单曲循环
+                btnPlayLogic.setImageResource(R.drawable.play_one);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
      * 播放歌曲
      *
      * @param songModel    播放源
@@ -286,10 +311,23 @@ public class MainActivity extends BaseActivity {
      * 上一首
      */
     private void last() {
-        mPosition--;
-        //如果上一曲小于0则取最后一首
-        if (mPosition < 0) {
-            mPosition = songsList.size() - 1;
+        switch (PlayLogic) {
+            case 0:
+                mPosition--;
+                //如果上一曲小于0则取最后一首
+                if (mPosition < 0) {
+                    mPosition = songsList.size() - 1;
+                }
+                break;
+            case 1:
+                int newPosition = (int) (Math.random() * songsList.size());
+                while (songsList.size() != 1 && newPosition == mPosition) {
+                    newPosition = (int) (Math.random() * songsList.size());
+                }
+                mPosition = newPosition;
+                break;
+            default:
+                break;
         }
         play(songsList.get(mPosition), true);
     }
@@ -298,10 +336,23 @@ public class MainActivity extends BaseActivity {
      * 下一首
      */
     private void next() {
-        mPosition++;
-        //如果下一曲大于歌曲数量则取第一首
-        if (mPosition >= songsList.size()) {
-            mPosition = 0;
+        switch (PlayLogic) {
+            case 0:
+                mPosition++;
+                //如果下一曲大于歌曲数量则取第一首
+                if (mPosition >= songsList.size()) {
+                    mPosition = 0;
+                }
+                break;
+            case 1:
+                int newPosition = (int) (Math.random() * songsList.size());
+                while (songsList.size() != 1 && newPosition == mPosition) {
+                    newPosition = (int) (Math.random() * songsList.size());
+                }
+                mPosition = newPosition;
+                break;
+            default:
+                break;
         }
         play(songsList.get(mPosition), true);
     }
