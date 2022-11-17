@@ -45,10 +45,12 @@ public class MainActivity extends BaseActivity {
 
     private SongAdapter mAdapter;
     private MusicPlayerHelper helper;
+
     /**
      * 歌曲数据源
      */
     private final List<SongModel> songsList = new ArrayList<>();
+
     /**
      * 当前播放歌曲游标位置
      */
