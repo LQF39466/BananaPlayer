@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,7 +22,6 @@ import com.hustcsproject.BananaPlayer.base.BaseActivity;
 import com.hustcsproject.BananaPlayer.model.SongModel;
 import com.hustcsproject.BananaPlayer.utils.ScanMusicUtils;
 import com.hustcsproject.BananaPlayer.utils.UmEventUtils;
-import com.hustcsproject.BananaPlayer.NowPlaying;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
@@ -40,10 +39,9 @@ public class MainActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private SeekBar seekbar;
     private TextView tvSongName;
-    private Button btnLast;
-    private Button btnStar;
-    private Button btnStop;
-    private Button btnNext;
+    private ImageButton btnPrev;
+    private ImageButton btnStart;
+    private ImageButton btnNext;
 
     private SongAdapter mAdapter;
     private MusicPlayerHelper helper;
@@ -100,10 +98,9 @@ public class MainActivity extends BaseActivity {
         mRecyclerView = findViewById(R.id.mRecyclerView);
         seekbar = findViewById(R.id.seekbar);
         tvSongName = findViewById(R.id.tvSongName);
-        btnLast = findViewById(R.id.btnLast);
-        btnStar = findViewById(R.id.btnStar);
-        btnStop = findViewById(R.id.btnStop);
-        btnNext = findViewById(R.id.btnNext);
+        btnPrev = findViewById(R.id.prevButton);
+        btnStart = findViewById(R.id.playButton);
+        btnNext = findViewById(R.id.nexButton);
 
         initPlayHelper();
         initRecycleView();
@@ -153,9 +150,8 @@ public class MainActivity extends BaseActivity {
      */
     @Override
     public void initListener() {
-        btnStar.setOnClickListener(this::onClick);
-        btnStop.setOnClickListener(this::onClick);
-        btnLast.setOnClickListener(this::onClick);
+        btnStart.setOnClickListener(this::onClick);
+        btnPrev.setOnClickListener(this::onClick);
         btnNext.setOnClickListener(this::onClick);
     }
 
@@ -230,18 +226,14 @@ public class MainActivity extends BaseActivity {
      */
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btnLast) {
+        if (id == R.id.prevButton) {
             // 上一曲
             last();
             UmEventUtils.lastMusic();
-        } else if (id == R.id.btnStar || id == R.id.playStopButton) {
+        } else if (id == R.id.playButton) {
             // 播放/暂停
             play(songsList.get(mPosition), false);
-        } else if (id == R.id.btnStop) {
-            // 停止
-            stop();
-            UmEventUtils.stopMusic();
-        } else if (id == R.id.btnNext) {
+        } else if (id == R.id.nexButton) {
             // 下一曲
             next();
             UmEventUtils.nextMusic();
@@ -259,13 +251,15 @@ public class MainActivity extends BaseActivity {
             Log.e(TAG, String.format("当前状态：%s  是否切换歌曲：%s", helper.isPlaying(), isRestPlayer));
             // 当前若是播放，则进行暂停
             if (!isRestPlayer && helper.isPlaying()) {
-                btnStar.setText(R.string.btn_play);
+                // btnStart.setText(R.string.btn_play); 切换按钮
+                btnStart.setImageResource(R.drawable.three_play);
                 pause();
                 UmEventUtils.pauseMusic();
             } else {
                 //进行切换歌曲播放
                 helper.playBySongModel(songModel, isRestPlayer);
-                btnStar.setText(R.string.btn_pause);
+                btnStart.setImageResource(R.drawable.three_pause);
+
                 // 正在播放的列表进行更新哪一首歌曲正在播放 主要是为了更新列表里面的显示
                 for (int i = 0; i < songsList.size(); i++) {
                     songsList.get(i).setPlaying(mPosition == i);
@@ -311,16 +305,6 @@ public class MainActivity extends BaseActivity {
      */
     private void pause() {
         helper.pause();
-    }
-
-    /**
-     * 停止播放
-     */
-    private void stop() {
-        btnStar.setText(R.string.btn_star);
-        helper.stop();
-        songsList.get(mPosition).setPlaying(false);
-        mAdapter.notifyItemChanged(mPosition);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,7 +9,7 @@
     <LinearLayout
         android:id="@+id/linearRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="365dp"
         android:layout_marginBottom="30dp"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -15,64 +17,77 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 
-    <SeekBar
-        android:id="@+id/seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
-
-    <TextView
-        android:id="@+id/tvSongName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="startNowPlayingActivity"
-        android:text="Button" />
-
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/linearBtnGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="40dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="40dp">
 
-        <Button
-            android:id="@+id/btnLast"
+        <ImageButton
+            android:id="@+id/playButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_last" />
+            android:background="#00FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/nexButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/prevButton"
+            app:layout_constraintTop_toTopOf="@+id/nexButton"
+            app:srcCompat="@drawable/three_play" />
 
-        <Button
-            android:id="@+id/btnStar"
+        <ImageButton
+            android:id="@+id/prevButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_star" />
+            android:layout_marginStart="24dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/playButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/playButton"
+            app:srcCompat="@drawable/three_prev" />
 
-        <Button
-            android:id="@+id/btnStop"
+        <ImageButton
+            android:id="@+id/nexButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_stop" />
+            android:layout_marginEnd="24dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/playButton"
+            app:layout_constraintTop_toBottomOf="@+id/tvSongName"
+            app:srcCompat="@drawable/three_next" />
 
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvSongName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_next" />
-    </LinearLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/nexButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            app:layout_constraintBottom_toTopOf="@+id/tvSongName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
