@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
      */
     @Override
     public String getTootBarTitle() {
-        return "音乐播放器";
+        return "Banana Player";
     }
 
     @Override

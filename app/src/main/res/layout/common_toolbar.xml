@@ -11,38 +11,38 @@
     android:theme="@style/ToolbarTheme"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+    <ImageView
+        android:id="@+id/iv_toolbar_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="10dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:padding="4dp"
+        android:scaleType="centerInside"
+        android:visibility="visible"
+        app:srcCompat="@drawable/banana" />
+
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="音乐播放器"
+        android:layout_gravity="left"
+        android:layout_marginStart="10dp"
+        android:text="Banana Player"
         android:textColor="?attr/colorPrimaryDark"
         android:textSize="17sp" />
-
-    <TextView
-        android:id="@+id/tv_toolbar_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="?android:attr/selectableItemBackground"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp"
-        android:text="XXX"
-        android:textColor="?attr/colorPrimaryDark"
-        android:textSize="14sp"
-        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_toolbar_right"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="end"
+        android:layout_marginRight="10dp"
         android:background="@null"
         android:contentDescription="@null"
-        android:padding="7dp"
+        android:padding="4dp"
         android:scaleType="centerInside"
-        android:visibility="gone" />
+        android:visibility="visible" />
 </android.support.v7.widget.Toolbar>

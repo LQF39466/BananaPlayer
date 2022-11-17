@@ -71,7 +71,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         mToolbar = view.findViewById(R.id.toolbar_root);
         mTxtTitle = view.findViewById(R.id.toolbar_title);
         ivToolbarRight = view.findViewById(R.id.iv_toolbar_right);
-        tvToolbarRight = view.findViewById(R.id.tv_toolbar_right);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             //是否显示标题

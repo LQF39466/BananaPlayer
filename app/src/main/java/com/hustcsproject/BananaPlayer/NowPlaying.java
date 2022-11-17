@@ -13,7 +13,6 @@ public class NowPlaying extends MainActivity {
         setContentView(R.layout.activity_now_playing);
 
         Intent intent = getIntent();
-        ImageView albumCoverImageView = findViewById(R.id.albumCoverImageView);
         TextView musicNameTextView = findViewById(R.id.musicNameTextView);
         TextView musicianNameTextView = findViewById(R.id.musicianNameTextView);
         TextView musicLocalFilePathTextView = findViewById(R.id.musicDurationTextView);
