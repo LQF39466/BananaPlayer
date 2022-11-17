@@ -51,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/playButton"
             app:layout_constraintEnd_toStartOf="@+id/playButton"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageButton2"
+            app:layout_constraintStart_toEndOf="@+id/playLogicButton"
             app:layout_constraintTop_toTopOf="@+id/playButton"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/three_prev" />
@@ -83,10 +83,11 @@
             app:srcCompat="@drawable/ic_baseline_more_40" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/playLogicButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
+            android:onClick="onClickPlayLogic"
             app:layout_constraintBottom_toBottomOf="@+id/prevButton"
             app:layout_constraintEnd_toStartOf="@+id/prevButton"
             app:layout_constraintHorizontal_bias="0.5"
