@@ -31,13 +31,6 @@ public class UmEventUtils {
     }
 
     /**
-     * 停止
-     */
-    public static void stopMusic() {
-        MobclickAgent.onEvent(MyApp.getInstance().getApplicationContext(), "click", "stop_music");
-    }
-
-    /**
      * 暂停
      */
     public static void pauseMusic() {

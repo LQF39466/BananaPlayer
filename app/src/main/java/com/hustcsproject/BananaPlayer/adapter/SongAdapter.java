@@ -55,7 +55,5 @@ public class SongAdapter extends BaseAdapter<SongModel, SongAdapter.SongViewHold
             tvSongName = itemView.findViewById(R.id.tvSongName);
             musicNameTextView = itemView.findViewById(R.id.musicNameTextView);
         }
-
-
     }
 }

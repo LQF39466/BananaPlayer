@@ -28,13 +28,13 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layoutid = onBindLayout();
-        View view = LayoutInflater.from(mContext).inflate(layoutid, parent, false);
+        int layoutId = onBindLayout();
+        View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
         return onCreateHolder(view);
     }
     protected abstract int onBindLayout();
     protected abstract VH onCreateHolder(View view);
-    protected abstract void onBindData(VH holder, E e,int positon);
+    protected abstract void onBindData(VH holder, E e,int position);
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, final int position) {
@@ -76,8 +76,8 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
         }
         notifyDataSetChanged();
     }
-    public void remove(int positon) {
-        mList.remove(positon);
+    public void remove(int position) {
+        mList.remove(position);
         notifyDataSetChanged();
     }
     public void remove(E e) {
@@ -116,7 +116,7 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
         void onItemClick(E e, int position);
     }
     public interface OnItemLongClickListener<E> {
-        boolean onItemLongClick(E e, int postion);
+        boolean onItemLongClick(E e, int position);
     }
 
     @Override
