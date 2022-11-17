@@ -30,7 +30,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
     private static final int MSG_CODE = 0x01;
     private static final long MSG_TIME = 1_000L;
 
-    private final MusicPlayerHelperHanlder mHandler;
+    private final MusicPlayerHelperHandler mHandler;
     /**
      * 播放器
      */
@@ -52,7 +52,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
     private SongModel songModel;
 
     public MusicPlayerHelper(SeekBar seekBar, TextView text) {
-        mHandler = new MusicPlayerHelperHanlder(this);
+        mHandler = new MusicPlayerHelperHandler(this);
         player = new MediaPlayer();
         // 设置媒体流类型
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -138,19 +138,6 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
     }
 
     /**
-     * 停止
-     */
-    public void stop() {
-        Log.e(TAG, "stop");
-        player.stop();
-        seekBar.setProgress(0);
-        text.setText("停止播放");
-        //移除更新命令
-        mHandler.removeMessages(MSG_CODE);
-    }
-
-
-    /**
      * 是否正在播放
      */
     public Boolean isPlaying() {
@@ -158,7 +145,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
     }
 
     /**
-     * 消亡 必须在 Activity 或者 Frament onDestroy() 调用 以防止内存泄露
+     * 消亡 必须在 Activity 或者 Fragment onDestroy() 调用 以防止内存泄露
      */
     public void destroy() {
         // 释放掉播放器
@@ -231,10 +218,10 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         void onCompletion(MediaPlayer mp);
     }
 
-    static class MusicPlayerHelperHanlder extends Handler {
+    static class MusicPlayerHelperHandler extends Handler {
         WeakReference<MusicPlayerHelper> weakReference;
 
-        public MusicPlayerHelperHanlder(MusicPlayerHelper helper) {
+        public MusicPlayerHelperHandler(MusicPlayerHelper helper) {
             super(Looper.getMainLooper());
             this.weakReference = new WeakReference<>(helper);
         }

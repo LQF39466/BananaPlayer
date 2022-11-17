@@ -26,10 +26,6 @@ public class NoDataView extends RelativeLayout {
         mImgNoDataView = findViewById(R.id.img_no_data);
     }
 
-    public void setNoDataBackground(@ColorRes int  colorResId){
-        mRlNoDataRoot.setBackgroundColor(getResources().getColor(colorResId));
-    }
-
     public void setNoDataView(@DrawableRes int imgResId){
         mImgNoDataView.setImageResource(imgResId);
     }

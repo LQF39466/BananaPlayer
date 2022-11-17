@@ -23,18 +23,6 @@ import io.reactivex.annotations.NonNull;
 public class ScanMusicUtils {
 
     /**
-     * 刷新音乐库(已弃用，推荐使用{@link MediaScannerConnection#scanFile(Context, String[], String[], MediaScannerConnection.OnScanCompletedListener)})
-     *
-     * @param context  上下文
-     * @param filePath 文件路径
-     */
-    public static void scanFileAsync(@NonNull Context context, String filePath) {
-        Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        scanIntent.setData(Uri.fromFile(new File(filePath)));
-        context.sendBroadcast(scanIntent);
-    }
-
-    /**
      * 扫描系统里面的音频文件，返回一个list集合
      */
     public static List<SongModel> getMusicData(@NonNull Context context) {

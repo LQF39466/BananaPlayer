@@ -27,9 +27,9 @@ public class MyApp extends Application {
 
     private void initUm() {
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
-        UMConfigure.preInit(this, "5fb738981e29ca3d7bdef32a", "Hzsoft_Java");
+        UMConfigure.preInit(this, "5fb738981e29ca3d7bdef32a", "Hust301");
         //友盟正式初始化
-        UMConfigure.init(this, "5fb738981e29ca3d7bdef32a", "Hzsoft_Java", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(this, "5fb738981e29ca3d7bdef32a", "Hust301", UMConfigure.DEVICE_TYPE_PHONE, "");
         // 支持在子进程中统计自定义事件
         UMConfigure.setProcessEvent(true);
         //选择AUTO页面采集模式，统计SDK基础指标无需手动埋点可自动采集
