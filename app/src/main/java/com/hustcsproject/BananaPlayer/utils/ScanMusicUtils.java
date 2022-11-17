@@ -1,0 +1,84 @@
+package com.hustcsproject.BananaPlayer.utils;
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.provider.MediaStore;
+
+import com.hustcsproject.BananaPlayer.model.SongModel;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.annotations.NonNull;
+
+/**
+ * Describe:
+ * <p>扫描本地音乐文件</p>
+ *
+ */
+public class ScanMusicUtils {
+
+    /**
+     * 刷新音乐库(已弃用，推荐使用{@link MediaScannerConnection#scanFile(Context, String[], String[], MediaScannerConnection.OnScanCompletedListener)})
+     *
+     * @param context  上下文
+     * @param filePath 文件路径
+     */
+    public static void scanFileAsync(@NonNull Context context, String filePath) {
+        Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        scanIntent.setData(Uri.fromFile(new File(filePath)));
+        context.sendBroadcast(scanIntent);
+    }
+
+    /**
+     * 扫描系统里面的音频文件，返回一个list集合
+     */
+    public static List<SongModel> getMusicData(@NonNull Context context) {
+        List<SongModel> list = new ArrayList<>();
+        String[] selectionArgs = new String[]{"%Music%"};
+        String selection = MediaStore.Audio.Media.DATA + " like ? ";
+        // 媒体库查询语句（写一个工具类MusicUtils）
+        Cursor cursor = context.getContentResolver().query(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, selection,
+                selectionArgs, MediaStore.Audio.AudioColumns.IS_MUSIC
+        );
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                SongModel songModel = new SongModel();
+                songModel.setName(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME)));
+                songModel.setSinger(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)));
+                songModel.setPath(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)));
+                songModel.setDuration(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)));
+                songModel.setSize(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE)));
+                if (songModel.getSize() > 1000 * 800) {
+                    // 注释部分是切割标题，分离出歌曲名和歌手 （本地媒体库读取的歌曲信息不规范）
+                    String name = songModel.getName();
+                    if (name != null && name.contains("-")) {
+                        String[] str = name.split("-");
+                        songModel.setSinger(str[0]);
+                        songModel.setName(str[1]);
+                    }
+                    list.add(songModel);
+                }
+            }
+            // 释放资源
+            cursor.close();
+        }
+        return list;
+    }
+
+    /**
+     * 定义一个方法用来格式化获取到的时间
+     */
+    public static String formatTime(int time) {
+        if (time / 1000 % 60 < 10) {
+            return (time / 1000 / 60) + ":0" + time / 1000 % 60;
+        } else {
+            return (time / 1000 / 60) + ":" + time / 1000 % 60;
+        }
+    }
+}
