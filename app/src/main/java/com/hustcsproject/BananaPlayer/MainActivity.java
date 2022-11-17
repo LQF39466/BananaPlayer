@@ -112,6 +112,9 @@ public class MainActivity extends BaseActivity {
     private void initPlayHelper() {
         // Init 播放 Helper
         helper = new MusicPlayerHelper(seekbar, tvSongName);
+
+        findViewById(R.id.tvSongName).setSelected(true);
+
         helper.setOnCompletionListener(mp -> {
             Log.e(TAG, "next()");
             //下一曲
