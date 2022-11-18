@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.tvSongName).setSelected(true);
 
         helper.setOnCompletionListener(mp -> {
-            Log.e(TAG, "next()");
+            //Log.e(TAG, "next()");
             //下一曲
             next();
         });
@@ -189,7 +189,7 @@ public class MainActivity extends BaseActivity {
             }
         });
         boolean disposed = subscribe.isDisposed();
-        Log.d(TAG, "initData: " + disposed);
+        //Log.d(TAG, "initData: " + disposed);
     }
 
     /**
@@ -275,7 +275,7 @@ public class MainActivity extends BaseActivity {
      */
     private void play(SongModel songModel, Boolean isRestPlayer) {
         if (!TextUtils.isEmpty(songModel.getPath())) {
-            Log.e(TAG, String.format("当前状态：%s  是否切换歌曲：%s", helper.isPlaying(), isRestPlayer));
+            //Log.e(TAG, String.format("当前状态：%s  是否切换歌曲：%s", helper.isPlaying(), isRestPlayer));
             // 当前若是播放，则进行暂停
             if (!isRestPlayer && helper.isPlaying()) {
                 btnStart.setImageResource(R.drawable.three_play);

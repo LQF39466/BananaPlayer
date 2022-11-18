@@ -72,7 +72,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         seekBar.setSecondaryProgress(percent);
         int currentProgress =
                 seekBar.getMax() * player.getCurrentPosition() / player.getDuration();
-        Log.e(TAG, currentProgress + "% play --> " + percent + "% buffer");
+        //Log.e(TAG, currentProgress + "% play --> " + percent + "% buffer");
     }
 
     /**
@@ -80,7 +80,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
      */
     @Override
     public void onCompletion(MediaPlayer mp) {
-        Log.e(TAG, "onCompletion");
+        //Log.e(TAG, "onCompletion");
         if (mOnCompletionListener != null) {
             mOnCompletionListener.onCompletion(mp);
         }
@@ -91,7 +91,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
      */
     @Override
     public void onPrepared(MediaPlayer mp) {
-        Log.e(TAG, "onPrepared");
+        //Log.e(TAG, "onPrepared");
         mp.start();
     }
 
@@ -104,7 +104,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
      */
     public void playBySongModel(@NonNull SongModel songModel, @NonNull Boolean isRestPlayer) {
         this.songModel = songModel;
-        Log.e(TAG, "playBySongModel Url: " + songModel.getPath());
+        //Log.e(TAG, "playBySongModel Url: " + songModel.getPath());
         if (isRestPlayer) {
             //重置多媒体
             player.reset();
@@ -128,7 +128,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
      * 暂停
      */
     public void pause() {
-        Log.e(TAG, "pause");
+        //Log.e(TAG, "pause");
         if (player.isPlaying()) {
             player.pause();
         }
@@ -173,7 +173,7 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         int progress = seekBar.getProgress();
-        Log.i(TAG, "onStopTrackingTouch " + progress);
+        //Log.i(TAG, "onStopTrackingTouch " + progress);
         // 得到该首歌曲最长秒数
         int musicMax = player.getDuration();
         // SeekBar最大值
