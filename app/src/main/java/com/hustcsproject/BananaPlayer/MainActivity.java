@@ -21,12 +21,10 @@ import com.hustcsproject.BananaPlayer.adapter.SongAdapter;
 import com.hustcsproject.BananaPlayer.base.BaseActivity;
 import com.hustcsproject.BananaPlayer.model.SongModel;
 import com.hustcsproject.BananaPlayer.utils.ScanMusicUtils;
-import com.hustcsproject.BananaPlayer.utils.UmEventUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import io.reactivex.disposables.Disposable;
 
@@ -81,7 +79,6 @@ public class MainActivity extends BaseActivity {
         return v -> {
             startAnimation(v);
             initData();
-            UmEventUtils.refreshMusic();
         };
     }
 
@@ -124,7 +121,6 @@ public class MainActivity extends BaseActivity {
             Log.e(TAG, "next()");
             //下一曲
             next();
-            UmEventUtils.autoPlayNextMusic();
         });
     }
 
@@ -149,7 +145,6 @@ public class MainActivity extends BaseActivity {
             mPosition = position;
             //播放歌曲
             play((SongModel) object, true);
-            UmEventUtils.listPlayMusic((SongModel) object);
         });
     }
 
@@ -240,14 +235,12 @@ public class MainActivity extends BaseActivity {
         if (id == R.id.prevButton) {
             // 上一曲
             last();
-            UmEventUtils.lastMusic();
         } else if (id == R.id.playButton) {
             // 播放/暂停
             play(songsList.get(mPosition), false);
         } else if (id == R.id.nexButton) {
             // 下一曲
             next();
-            UmEventUtils.nextMusic();
         }
     }
 
@@ -285,7 +278,6 @@ public class MainActivity extends BaseActivity {
                 // btnStart.setText(R.string.btn_play); 切换按钮
                 btnStart.setImageResource(R.drawable.three_play);
                 pause();
-                UmEventUtils.pauseMusic();
             } else {
                 //进行切换歌曲播放
                 helper.playBySongModel(songModel, isRestPlayer);
@@ -296,10 +288,6 @@ public class MainActivity extends BaseActivity {
                     songsList.get(i).setPlaying(mPosition == i);
                     mAdapter.notifyItemChanged(i);
                 }
-                if (!isRestPlayer) {
-                    UmEventUtils.playMusic();
-                }
-                UmEventUtils.playMusicInfo(songModel);
             }
         } else {
             showToast("当前的播放地址无效");

@@ -1,15 +1,11 @@
 package com.hustcsproject.BananaPlayer.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.hustcsproject.BananaPlayer.model.SongModel;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
