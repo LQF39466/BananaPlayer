@@ -236,7 +236,9 @@ public class MainActivity extends BaseActivity {
             last();
         } else if (id == R.id.playButton) {
             // 播放/暂停
-            play(songsList.get(mPosition), false);
+            if (songsList.size() > 0) {
+                play(songsList.get(mPosition), false);
+            }
         } else if (id == R.id.nexButton) {
             // 下一曲
             next();
@@ -270,27 +272,25 @@ public class MainActivity extends BaseActivity {
      * @param isRestPlayer true 切换歌曲 false 不切换
      */
     private void play(SongModel songModel, Boolean isRestPlayer) {
-        if (songsList.size() > 0) {
-            if (!TextUtils.isEmpty(songModel.getPath())) {
-                Log.e(TAG, String.format("当前状态：%s  是否切换歌曲：%s", helper.isPlaying(), isRestPlayer));
-                // 当前若是播放，则进行暂停
-                if (!isRestPlayer && helper.isPlaying()) {
-                    btnStart.setImageResource(R.drawable.three_play);
-                    pause();
-                } else {
-                    //进行切换歌曲播放
-                    helper.playBySongModel(songModel, isRestPlayer);
-                    btnStart.setImageResource(R.drawable.three_pause);
-
-                    // 正在播放的列表进行更新哪一首歌曲正在播放 主要是为了更新列表里面的显示
-                    for (int i = 0; i < songsList.size(); i++) {
-                        songsList.get(i).setPlaying(mPosition == i);
-                        mAdapter.notifyItemChanged(i);
-                    }
-                }
+        if (!TextUtils.isEmpty(songModel.getPath())) {
+            Log.e(TAG, String.format("当前状态：%s  是否切换歌曲：%s", helper.isPlaying(), isRestPlayer));
+            // 当前若是播放，则进行暂停
+            if (!isRestPlayer && helper.isPlaying()) {
+                btnStart.setImageResource(R.drawable.three_play);
+                pause();
             } else {
-                showToast("当前的播放地址无效");
+                //进行切换歌曲播放
+                helper.playBySongModel(songModel, isRestPlayer);
+                btnStart.setImageResource(R.drawable.three_pause);
+
+                // 正在播放的列表进行更新哪一首歌曲正在播放 主要是为了更新列表里面的显示
+                for (int i = 0; i < songsList.size(); i++) {
+                    songsList.get(i).setPlaying(mPosition == i);
+                    mAdapter.notifyItemChanged(i);
+                }
             }
+        } else {
+            showToast("当前的播放地址无效");
         }
     }
 
