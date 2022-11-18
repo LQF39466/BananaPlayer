@@ -18,32 +18,31 @@ public class NowPlaying extends MainActivity {
         TextView musicDurationTextView = findViewById(R.id.musicLocalFilePathTextView);
         TextView musicSizeTextView = findViewById(R.id.musicSizeTextView);
 
-        String str="<unknown>";
-        if(intent.getStringExtra("songName")!=null) {
-            musicNameTextView.setText("歌曲名："+intent.getStringExtra("songName"));
-        }else{
-            musicNameTextView.setText("歌曲名："+str);
+        String str = "<unknown>";
+        if (intent.getStringExtra("songName") != null) {
+            musicNameTextView.setText("歌曲名：" + intent.getStringExtra("songName"));
+        } else {
+            musicNameTextView.setText("歌曲名：" + str);
         }
-        if(intent.getStringExtra("artist")!=null){
-            musicianNameTextView.setText("艺人名："+intent.getStringExtra("artist"));
-        }else{
-            musicianNameTextView.setText("艺人名："+str);
+        if (intent.getStringExtra("artist") != null) {
+            musicianNameTextView.setText("艺人名：" + intent.getStringExtra("artist"));
+        } else {
+            musicianNameTextView.setText("艺人名：" + str);
         }
-        if(intent.getStringExtra("path")!=null){
-            musicLocalFilePathTextView.setText("文件位置："+intent.getStringExtra("path"));
-        }else{
-            musicLocalFilePathTextView.setText("文件位置："+str);
+        if (intent.getStringExtra("path") != null) {
+            musicLocalFilePathTextView.setText("文件位置：" + intent.getStringExtra("path"));
+        } else {
+            musicLocalFilePathTextView.setText("文件位置：" + str);
         }
-        if(intent.getStringExtra("duration")!=null){
-            musicDurationTextView.setText("歌曲时长："+intent.getStringExtra("duration"));
-        }else{
-            musicDurationTextView.setText("歌曲时长："+str);
+        if (intent.getStringExtra("duration") != null) {
+            musicDurationTextView.setText("歌曲时长：" + intent.getStringExtra("duration"));
+        } else {
+            musicDurationTextView.setText("歌曲时长：" + str);
         }
-        if(intent.getStringExtra("size")!=null)
-        {
-            musicSizeTextView.setText("歌曲大小："+intent.getStringExtra("size"));
-        }else{
-            musicSizeTextView.setText("歌曲大小："+str);
+        if (intent.getStringExtra("size") != null) {
+            musicSizeTextView.setText("歌曲大小：" + intent.getStringExtra("size"));
+        } else {
+            musicSizeTextView.setText("歌曲大小：" + str);
         }
 
 

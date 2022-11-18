@@ -29,9 +29,7 @@ import java.util.List;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Describe:
- * <p>播放器的主页</p>
- *
+ * 播放器主页类
  */
 public class MainActivity extends BaseActivity {
 
@@ -162,15 +160,14 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(this, NowPlaying.class);
         intent.putExtra("songName", songsList.get(mPosition).getName());
         intent.putExtra("artist", songsList.get(mPosition).getSinger());
-        intent.putExtra("duration",songsList.get(mPosition).getDuration());
-        intent.putExtra("size",songsList.get(mPosition).getSize());
-        intent.putExtra("path",songsList.get(mPosition).getPath());
-        intent.putExtra("imagePath", songsList.get(mPosition).getImagePath());
+        intent.putExtra("duration", songsList.get(mPosition).getDuration());
+        intent.putExtra("size", songsList.get(mPosition).getSize());
+        intent.putExtra("path", songsList.get(mPosition).getPath());
         startActivity(intent);
     }
 
     /**
-     * 初始化数据局
+     * 初始化数据
      */
     @Override
     public void initData() {
@@ -271,26 +268,27 @@ public class MainActivity extends BaseActivity {
      * @param isRestPlayer true 切换歌曲 false 不切换
      */
     private void play(SongModel songModel, Boolean isRestPlayer) {
-        if (!TextUtils.isEmpty(songModel.getPath())) {
-            Log.e(TAG, String.format("当前状态：%s  是否切换歌曲：%s", helper.isPlaying(), isRestPlayer));
-            // 当前若是播放，则进行暂停
-            if (!isRestPlayer && helper.isPlaying()) {
-                // btnStart.setText(R.string.btn_play); 切换按钮
-                btnStart.setImageResource(R.drawable.three_play);
-                pause();
-            } else {
-                //进行切换歌曲播放
-                helper.playBySongModel(songModel, isRestPlayer);
-                btnStart.setImageResource(R.drawable.three_pause);
+        if (songsList.size() > 0) {
+            if (!TextUtils.isEmpty(songModel.getPath())) {
+                Log.e(TAG, String.format("当前状态：%s  是否切换歌曲：%s", helper.isPlaying(), isRestPlayer));
+                // 当前若是播放，则进行暂停
+                if (!isRestPlayer && helper.isPlaying()) {
+                    btnStart.setImageResource(R.drawable.three_play);
+                    pause();
+                } else {
+                    //进行切换歌曲播放
+                    helper.playBySongModel(songModel, isRestPlayer);
+                    btnStart.setImageResource(R.drawable.three_pause);
 
-                // 正在播放的列表进行更新哪一首歌曲正在播放 主要是为了更新列表里面的显示
-                for (int i = 0; i < songsList.size(); i++) {
-                    songsList.get(i).setPlaying(mPosition == i);
-                    mAdapter.notifyItemChanged(i);
+                    // 正在播放的列表进行更新哪一首歌曲正在播放 主要是为了更新列表里面的显示
+                    for (int i = 0; i < songsList.size(); i++) {
+                        songsList.get(i).setPlaying(mPosition == i);
+                        mAdapter.notifyItemChanged(i);
+                    }
                 }
+            } else {
+                showToast("当前的播放地址无效");
             }
-        } else {
-            showToast("当前的播放地址无效");
         }
     }
 
@@ -299,50 +297,54 @@ public class MainActivity extends BaseActivity {
      * 上一首
      */
     private void last() {
-        switch (PlayLogic) {
-            case 0:
-                mPosition--;
-                //如果上一曲小于0则取最后一首
-                if (mPosition < 0) {
-                    mPosition = songsList.size() - 1;
-                }
-                break;
-            case 1:
-                int newPosition = (int) (Math.random() * songsList.size());
-                while (songsList.size() != 1 && newPosition == mPosition) {
-                    newPosition = (int) (Math.random() * songsList.size());
-                }
-                mPosition = newPosition;
-                break;
-            default:
-                break;
+        if (songsList.size() > 0) {
+            switch (PlayLogic) {
+                case 0:
+                    mPosition--;
+                    //如果上一曲小于0则取最后一首
+                    if (mPosition < 0) {
+                        mPosition = songsList.size() - 1;
+                    }
+                    break;
+                case 1:
+                    int newPosition = (int) (Math.random() * songsList.size());
+                    while (songsList.size() != 1 && newPosition == mPosition) {
+                        newPosition = (int) (Math.random() * songsList.size());
+                    }
+                    mPosition = newPosition;
+                    break;
+                default:
+                    break;
+            }
+            play(songsList.get(mPosition), true);
         }
-        play(songsList.get(mPosition), true);
     }
 
     /**
      * 下一首
      */
     private void next() {
-        switch (PlayLogic) {
-            case 0:
-                mPosition++;
-                //如果下一曲大于歌曲数量则取第一首
-                if (mPosition >= songsList.size()) {
-                    mPosition = 0;
-                }
-                break;
-            case 1:
-                int newPosition = (int) (Math.random() * songsList.size());
-                while (songsList.size() != 1 && newPosition == mPosition) {
-                    newPosition = (int) (Math.random() * songsList.size());
-                }
-                mPosition = newPosition;
-                break;
-            default:
-                break;
+        if (songsList.size() > 0) {
+            switch (PlayLogic) {
+                case 0:
+                    mPosition++;
+                    //如果下一曲大于歌曲数量则取第一首
+                    if (mPosition >= songsList.size()) {
+                        mPosition = 0;
+                    }
+                    break;
+                case 1:
+                    int newPosition = (int) (Math.random() * songsList.size());
+                    while (songsList.size() != 1 && newPosition == mPosition) {
+                        newPosition = (int) (Math.random() * songsList.size());
+                    }
+                    mPosition = newPosition;
+                    break;
+                default:
+                    break;
+            }
+            play(songsList.get(mPosition), true);
         }
-        play(songsList.get(mPosition), true);
     }
 
     /**

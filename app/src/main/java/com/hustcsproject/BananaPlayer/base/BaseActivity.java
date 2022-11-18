@@ -18,9 +18,7 @@ import com.hustcsproject.BananaPlayer.view.LoadingInitView;
 import com.hustcsproject.BananaPlayer.view.NoDataView;
 
 /**
- * Describe:
- * <p></p>
- *
+ * BaseActivity抽象类
  */
 public abstract class BaseActivity extends AppCompatActivity {
     public static String TAG = BaseActivity.class.getSimpleName();
@@ -118,8 +116,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 设置返回按钮的图样，可以是Drawable ,也可以是ResId
      * 注：仅在 enableToolBarLeft 返回为 true 时候有效
-     *
-     * @return
      */
     public int getToolBarLeftIcon() {
         return R.drawable.ic_white_black_45dp;
@@ -127,8 +123,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 是否打开返回
-     *
-     * @return
      */
     public boolean enableToolBarLeft() {
         return false;
@@ -136,8 +130,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置标题右边显示文字
-     *
-     * @return
      */
     public String getToolBarRightTxt() {
         return "";
@@ -145,8 +137,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置标题右边显示 Icon
-     *
-     * @return int resId 类型
      */
     public int getToolBarRightImg() {
         return 0;
@@ -154,8 +144,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 右边文字监听回调
-     *
-     * @return
      */
     public View.OnClickListener getToolBarRightTxtClick() {
         return null;
@@ -163,8 +151,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 右边图标监听回调
-     *
-     * @return
      */
     public View.OnClickListener getToolBarRightImgClick() {
         return null;
@@ -173,8 +159,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 是否打开状态栏
-     *
-     * @return
      */
     public boolean enableToolbar() {
         return true;
@@ -183,8 +167,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 绑定状态栏
-     *
-     * @return
      */
     public int onBindToolbarLayout() {
         return R.layout.common_toolbar;
@@ -192,8 +174,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 绑定主页
-     *
-     * @return
      */
     public abstract int onBindLayout();
 
@@ -213,40 +193,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void initListener() {
     }
 
-    public void finishActivity() {
-        finish();
-    }
-
     /**
      * toast
-     *
-     * @param msg msg
      */
     public void showToast(String msg) {
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public void showToast(int resId) {
-        Toast.makeText(mContext, resId, Toast.LENGTH_SHORT).show();
-    }
-
-
     /**
-     * 展示没有数据
+     * 展示z找不到数据
      */
     public void showNoDataView() {
         showNoDataView(true);
     }
 
     /**
-     * 展示自定义布局没有数据文件
-     */
-    public void showNoDataView(int resid) {
-        showNoDataView(true, resid);
-    }
-
-    /**
-     * 隐藏没有数据
+     * 隐藏找不到数据
      */
     public void hideNoDataView() {
         showNoDataView(false);
@@ -254,23 +216,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     /**
-     * 打开菊花
+     * 打开加载界面
      */
     public void showInitLoadView() {
         showInitLoadView(true);
     }
 
     /**
-     * 隐藏菊花
+     * 隐藏加载界面
      */
     public void hideInitLoadView() {
         showInitLoadView(false);
     }
 
     /**
-     * 展示没有数据页面
-     *
-     * @param show
+     * 是否展示没有数据页面
      */
     public void showNoDataView(boolean show) {
         if (mNoDataView == null) {
@@ -280,18 +240,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         mNoDataView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    public void showNoDataView(Boolean show, int resid) {
-        showNoDataView(show);
-        if (show) {
-            mNoDataView.setNoDataView(resid);
-        }
-    }
-
-
     /**
      * 是否展示正在加载窗口
-     *
-     * @param show
      */
     public void showInitLoadView(boolean show) {
         if (mLoadingInitView == null) {
