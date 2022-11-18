@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>BaseAdapter</p>
- *
+ * BaseAdapter抽象类
  */
 public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     protected Context mContext;
@@ -32,9 +31,12 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
         View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
         return onCreateHolder(view);
     }
+
     protected abstract int onBindLayout();
+
     protected abstract VH onCreateHolder(View view);
-    protected abstract void onBindData(VH holder, E e,int position);
+
+    protected abstract void onBindData(VH holder, E e, int position);
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, final int position) {
@@ -43,7 +45,7 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mItemClickListener.onItemClick(e,position);
+                    mItemClickListener.onItemClick(e, position);
                 }
             });
         }
@@ -51,11 +53,11 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    return mOnItemLongClickListener.onItemLongClick(e,position);
+                    return mOnItemLongClickListener.onItemLongClick(e, position);
                 }
             });
         }
-        onBindData(holder, e,position);
+        onBindData(holder, e, position);
     }
 
     @Override
@@ -69,52 +71,23 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
             notifyDataSetChanged();
         }
     }
-    public void refresh(List<E> list){
+
+    public void refresh(List<E> list) {
         mList.clear();
         if (list != null && list.size() > 0) {
             mList.addAll(list);
         }
         notifyDataSetChanged();
     }
-    public void remove(int position) {
-        mList.remove(position);
-        notifyDataSetChanged();
-    }
-    public void remove(E e) {
-        mList.remove(e);
-        notifyDataSetChanged();
-    }
-    public void add(E e) {
-        mList.add(e);
-        notifyDataSetChanged();
-    }
-    public void addLast(E e) {
-        add(e);
-    }
-    public void addFirst(E e) {
-        mList.add(0,e);
-        notifyDataSetChanged();
-    }
-    public void clear() {
-        mList.clear();
-        notifyDataSetChanged();
-    }
-
-    public List<E> getDataList() {
-        return mList;
-    }
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
-        mOnItemLongClickListener = onItemLongClickListener;
-    }
-
     public interface OnItemClickListener<E> {
         void onItemClick(E e, int position);
     }
+
     public interface OnItemLongClickListener<E> {
         boolean onItemLongClick(E e, int position);
     }
@@ -124,7 +97,4 @@ public abstract class BaseAdapter<E, VH extends RecyclerView.ViewHolder> extends
         return super.getItemViewType(position);
     }
 
-    public List<E> getListData(){
-        return mList;
-    }
 }

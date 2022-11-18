@@ -13,9 +13,7 @@ import com.hustcsproject.BananaPlayer.base.BaseAdapter;
 import com.hustcsproject.BananaPlayer.model.SongModel;
 
 /**
- * Describe:
- * <p>歌曲适配器</p>
- *
+ * 歌曲适配器类
  */
 public class SongAdapter extends BaseAdapter<SongModel, SongAdapter.SongViewHolder> {
     public SongAdapter(Context context) {

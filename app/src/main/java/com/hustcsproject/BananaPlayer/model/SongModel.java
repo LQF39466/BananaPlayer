@@ -1,35 +1,35 @@
 package com.hustcsproject.BananaPlayer.model;
 
 /**
- * Describe:
- * <p>歌曲实体模型</p>
- *
+ * 歌曲实体模型
  */
 public class SongModel {
+
     /**
      * 歌曲名字
      */
     private String name;
-    /**
-     * 歌曲照片
-     */
-    private String imagePath;
+
     /**
      * 作家
      */
     private String singer;
+
     /**
      * 路径
      */
     private String path;
+
     /**
      * 时长
      */
     private int duration;
+
     /**
      * 文件大小
      */
     private long size;
+
     /**
      * 是否正在播放
      */
@@ -44,14 +44,6 @@ public class SongModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public String getSinger() {

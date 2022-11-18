@@ -12,9 +12,7 @@ import java.util.List;
 import io.reactivex.annotations.NonNull;
 
 /**
- * Describe:
- * <p>扫描本地音乐文件</p>
- *
+ * 扫描本地音乐类
  */
 public class ScanMusicUtils {
 
@@ -56,7 +54,7 @@ public class ScanMusicUtils {
     }
 
     /**
-     * 定义一个方法用来格式化获取到的时间
+     * 格式化获取到的时间
      */
     public static String formatTime(int time) {
         if (time / 1000 % 60 < 10) {
