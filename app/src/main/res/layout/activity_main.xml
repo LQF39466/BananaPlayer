@@ -104,7 +104,7 @@
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:selectAllOnFocus="false"
