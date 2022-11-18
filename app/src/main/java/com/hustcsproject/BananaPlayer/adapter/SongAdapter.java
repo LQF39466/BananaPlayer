@@ -47,13 +47,11 @@ public class SongAdapter extends BaseAdapter<SongModel, SongAdapter.SongViewHold
 
         ImageView ivSongImage;
         TextView tvSongName;
-        TextView musicNameTextView;
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);
             ivSongImage = itemView.findViewById(R.id.ivSongImage);
             tvSongName = itemView.findViewById(R.id.tvSongName);
-            musicNameTextView = itemView.findViewById(R.id.musicNameTextView);
         }
     }
 }

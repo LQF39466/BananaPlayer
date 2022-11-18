@@ -6,4 +6,5 @@
     <string name="btn_next">下一首</string>
     <string name="btn_play">播放</string>
     <string name="btn_pause">暂停</string>
+    <string name="tvSong_default">当前没有歌曲正在播放</string>
 </resources>

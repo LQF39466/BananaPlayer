@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private SeekBar seekbar;
     private TextView tvSongName;
+    private TextView tvTimer;
     private ImageButton btnPrev;
     private ImageButton btnStart;
     private ImageButton btnNext;
@@ -98,6 +99,7 @@ public class MainActivity extends BaseActivity {
         mRecyclerView = findViewById(R.id.mRecyclerView);
         seekbar = findViewById(R.id.seekbar);
         tvSongName = findViewById(R.id.tvSongName);
+        tvTimer = findViewById(R.id.tvTimer);
         btnPrev = findViewById(R.id.prevButton);
         btnStart = findViewById(R.id.playButton);
         btnNext = findViewById(R.id.nexButton);
@@ -113,7 +115,7 @@ public class MainActivity extends BaseActivity {
      */
     private void initPlayHelper() {
         // Init 播放 Helper
-        helper = new MusicPlayerHelper(seekbar, tvSongName);
+        helper = new MusicPlayerHelper(seekbar, tvSongName, tvTimer);
 
         findViewById(R.id.tvSongName).setSelected(true);
 

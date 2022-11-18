@@ -44,14 +44,15 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
     /**
      * 显示播放信息
      */
-    private final TextView text;
+    private final TextView songName;
+    private final TextView timer;
 
     /**
      * 当前的播放歌曲信息
      */
     private SongModel songModel;
 
-    public MusicPlayerHelper(SeekBar seekBar, TextView text) {
+    public MusicPlayerHelper(SeekBar seekBar, TextView songName, TextView timer) {
         mHandler = new MusicPlayerHelperHandler(this);
         player = new MediaPlayer();
         // 设置媒体流类型
@@ -62,7 +63,8 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
 
         this.seekBar = seekBar;
         this.seekBar.setOnSeekBarChangeListener(this);
-        this.text = text;
+        this.songName = songName;
+        this.timer = timer;
     }
 
     @Override
@@ -114,9 +116,6 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
                     e.printStackTrace();
                 }
             }
-            // 准备自动播放 同步加载，阻塞 UI 线程
-            // player.prepare()
-            // 建议使用异步加载方式，不阻塞 UI 线程
             player.prepareAsync();
         } else {
             player.start();
@@ -133,7 +132,6 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         if (player.isPlaying()) {
             player.pause();
         }
-        //移除更新命令
         mHandler.removeMessages(MSG_CODE);
     }
 
@@ -187,9 +185,12 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         mHandler.sendEmptyMessageDelayed(MSG_CODE, MSG_TIME);
     }
 
+    private String getCurrentPlayingInfo() {
+        return String.format("%s\t\t",songModel.getName());
+    }
+
     private String getCurrentPlayingInfo(int currentTime, int maxTime) {
-        String info = String.format("正在播放:  %s\t\t", songModel.getName());
-        return String.format("%s %s / %s", info, ScanMusicUtils.formatTime(currentTime), ScanMusicUtils.formatTime(maxTime));
+        return String.format("%s / %s", ScanMusicUtils.formatTime(currentTime), ScanMusicUtils.formatTime(maxTime));
     }
 
     private OnCompletionListener mOnCompletionListener;
@@ -239,7 +240,8 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
                         // 计算进度（获取进度条最大刻度*当前音乐播放位置 / 当前音乐时长）
                         pos = (int) (weakReference.get().seekBar.getMax() * position / (duration * 1.0f));
                     }
-                    weakReference.get().text.setText(weakReference.get().getCurrentPlayingInfo(position, duration));
+                    weakReference.get().songName.setText(weakReference.get().getCurrentPlayingInfo());
+                    weakReference.get().timer.setText(weakReference.get().getCurrentPlayingInfo(position, duration));
                 }
                 weakReference.get().seekBar.setProgress(pos);
                 sendEmptyMessageDelayed(MSG_CODE, MSG_TIME);
