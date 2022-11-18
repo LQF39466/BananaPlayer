@@ -30,16 +30,24 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
 
     private final MusicPlayerHelperHandler mHandler;
 
-    /** 播放器 */
+    /**
+     * 播放器
+     */
     private final MediaPlayer player;
 
-    /** 进度条 */
+    /**
+     * 进度条
+     */
     private final SeekBar seekBar;
 
-    /** 显示播放信息 */
+    /**
+     * 显示播放信息
+     */
     private final TextView text;
 
-    /** 当前的播放歌曲信息 */
+    /**
+     * 当前的播放歌曲信息
+     */
     private SongModel songModel;
 
     public MusicPlayerHelper(SeekBar seekBar, TextView text) {
@@ -64,7 +72,9 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         Log.e(TAG, currentProgress + "% play --> " + percent + "% buffer");
     }
 
-    /** 当前 Song 播放完毕 */
+    /**
+     * 当前 Song 播放完毕
+     */
     @Override
     public void onCompletion(MediaPlayer mp) {
         Log.e(TAG, "onCompletion");
@@ -73,7 +83,9 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         }
     }
 
-    /** 当前 Song 已经准备好 */
+    /**
+     * 当前 Song 已经准备好
+     */
     @Override
     public void onPrepared(MediaPlayer mp) {
         Log.e(TAG, "onPrepared");
@@ -109,7 +121,9 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         mHandler.sendEmptyMessage(MSG_CODE);
     }
 
-    /** 暂停 */
+    /**
+     * 暂停
+     */
     public void pause() {
         Log.e(TAG, "pause");
         if (player.isPlaying()) {
@@ -119,31 +133,41 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
         mHandler.removeMessages(MSG_CODE);
     }
 
-    /** 是否正在播放 */
+    /**
+     * 是否正在播放
+     */
     public Boolean isPlaying() {
         return player.isPlaying();
     }
 
-    /** 结束使用，释放空间 */
+    /**
+     * 结束使用，释放空间
+     */
     public void destroy() {
         // 释放掉播放器
         player.release();
         mHandler.removeCallbacksAndMessages(null);
     }
 
-    /** 用于监听SeekBar进度值的改变 */
+    /**
+     * 用于监听SeekBar进度值的改变
+     */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
     }
 
-    /** 用于监听SeekBar开始拖动 */
+    /**
+     * 用于监听SeekBar开始拖动
+     */
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         mHandler.removeMessages(MSG_CODE);
     }
 
-    /** 用于监听SeekBar停止拖动  SeekBar停止拖动后的事件 */
+    /**
+     * 用于监听SeekBar停止拖动  SeekBar停止拖动后的事件
+     */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         int progress = seekBar.getProgress();
@@ -165,7 +189,6 @@ public class MusicPlayerHelper implements MediaPlayer.OnBufferingUpdateListener,
     }
 
     private OnCompletionListener mOnCompletionListener;
-
 
     /**
      * Register a callback to be invoked when the end of a media source

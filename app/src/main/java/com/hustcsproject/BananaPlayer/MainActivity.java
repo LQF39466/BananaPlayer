@@ -158,11 +158,13 @@ public class MainActivity extends BaseActivity {
 
     public void startNowPlayingActivity(View view) {
         Intent intent = new Intent(this, NowPlaying.class);
-        intent.putExtra("songName", songsList.get(mPosition).getName());
-        intent.putExtra("artist", songsList.get(mPosition).getSinger());
-        intent.putExtra("duration", songsList.get(mPosition).getDuration());
-        intent.putExtra("size", songsList.get(mPosition).getSize());
-        intent.putExtra("path", songsList.get(mPosition).getPath());
+        if (songsList.size() > 0) {
+            intent.putExtra("songName", songsList.get(mPosition).getName());
+            intent.putExtra("artist", songsList.get(mPosition).getSinger());
+            intent.putExtra("duration", songsList.get(mPosition).getDuration());
+            intent.putExtra("size", songsList.get(mPosition).getSize());
+            intent.putExtra("path", songsList.get(mPosition).getPath());
+        }
         startActivity(intent);
     }
 
