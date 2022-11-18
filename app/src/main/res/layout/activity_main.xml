@@ -65,7 +65,7 @@
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/playButton"
-            app:layout_constraintTop_toBottomOf="@+id/tvSongName"
+            app:layout_constraintTop_toBottomOf="@+id/seekbar"
             app:srcCompat="@drawable/three_next" />
 
         <ImageButton
@@ -98,21 +98,24 @@
         <TextView
             android:id="@+id/tvSongName"
             android:layout_width="0dp"
-            android:layout_height="17dp"
+            android:layout_height="19dp"
             android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:fontFamily="sans-serif"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:selectAllOnFocus="false"
             android:singleLine="true"
-            app:layout_constraintBottom_toTopOf="@+id/nexButton"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/tvSong_default"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/seekbar"
+            app:layout_constraintEnd_toStartOf="@+id/tvTimer"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <SeekBar
             android:id="@+id/seekbar"
@@ -122,12 +125,26 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:max="100"
-            app:layout_constraintBottom_toTopOf="@+id/tvSongName"
+            android:progressTint="#FFC107"
+            android:thumb="@drawable/seekbar_thumb"
+            app:layout_constraintBottom_toTopOf="@+id/nexButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread" />
+            app:layout_constraintTop_toBottomOf="@+id/tvSongName" />
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSongName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvSongName"
+            app:layout_constraintTop_toTopOf="@+id/tvSongName" />
 
     </android.support.constraint.ConstraintLayout>
 
